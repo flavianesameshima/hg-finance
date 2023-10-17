@@ -13,6 +13,8 @@ namespace hg_brasil_finance.Aplication.Integration
         private string message;
         private string statusCode;
         private Root<Dictionary<string, StockResponse>> responseStockResponse;
+        private Root<Dictionary<string, DefaultResponse>> responseDefaultResponse;
+        private Root<List<string>> responseListResponse;
         private readonly CacheConfig _cache;
         private readonly string _keyFinanceHG;
 
@@ -29,48 +31,70 @@ namespace hg_brasil_finance.Aplication.Integration
             _keyFinanceHG = keyFinanceHG;
         }
 
-        public ApiResponse<DefaultResponse> GetAll()
+        public ApiResponse<Dictionary<string, DefaultResponse>> GetAll()
         {
-            //try
-            //{
-            //    var request = new RestRequest();
-            //    request.Method = Method.Get;
-            //    request.AddHeader("key", key);
+            try
+            {
+                if (_cache != null)
+                {
+                    var result = (ApiResponse<Dictionary<string, DefaultResponse>>)_cache.TryGetValue("AllCache");
+                    if (result != null)
+                        return result;
+                }
+                var request = new RestRequest();
+                request.Method = Method.Get;
+                request.AddHeader("key", _keyFinanceHG);
 
-            //    var response = _client.Execute<Root<DefaultResponse>>(request);
+                var response = _client.Execute(request);
 
-            //    var returnAPI = new ApiResponse<DefaultResponse>("Sucesso!", response.Data, response.StatusCode.ToString());
+                responseDefaultResponse = response.Content.DeserializeObjectDefault();
+                message = response.IsSuccessful ? "Sucesso" : response.ErrorMessage;
+                statusCode = response.StatusCode.ToString();
 
-            //    return returnAPI;
-            //}
-            //catch (Exception ex)
-            //{
-            //    return new ApiResponse<DefaultResponse>(ex.Message, HttpStatusCode.InternalServerError.ToString());
-            //}
+                if (_cache != null)
+                    _cache.SetValue(new ApiResponse<Dictionary<string, DefaultResponse>>(message, responseDefaultResponse, statusCode, true), "AllCache");
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+                statusCode = HttpStatusCode.InternalServerError.ToString();
+            }
 
-            throw new NotImplementedException();
+            return new ApiResponse<Dictionary<string, DefaultResponse>>(message, responseDefaultResponse, statusCode, false);
         }
 
         public ApiResponse<List<String>> GetAllTickers()
         {
-            //try
-            //{
-            //    var request = new RestRequest("/ticker_list");
-            //    request.Method = Method.Get;
-            //    request.AddHeader("key", key);
+            try
+            {
+                if (_cache != null)
+                {
+                    var result = (ApiResponse<List<String>>)_cache.TryGetValue("AllTickersCache");
+                    if (result != null)
+                        return result;
+                }
 
-            //    var response = _client.Execute<Root<List<String>>>(request);
+                var request = new RestRequest("/ticker_list");
+                request.Method = Method.Get;
+                request.AddHeader("key", _keyFinanceHG);
 
-            //    var returnAPI = new ApiResponse<List<String>>("Sucesso!", response.Data, response.StatusCode.ToString());
+                var response = _client.Execute(request);
 
-            //    return returnAPI;
-            //}
-            //catch (Exception ex)
-            //{
-            //    return new ApiResponse<List<String>>(ex.Message, HttpStatusCode.InternalServerError.ToString());
-            //}
+                responseListResponse = response.Content.DeserializeObjectList();
+                message = response.IsSuccessful ? "Sucesso" : response.ErrorMessage;
+                statusCode = response.StatusCode.ToString();
 
-            throw new NotImplementedException();
+                if (_cache != null)
+                    _cache.SetValue(new ApiResponse<List<String>>(message, responseListResponse, statusCode, true), "AllCache");
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+                statusCode = HttpStatusCode.InternalServerError.ToString();
+            }
+
+            return new ApiResponse<List<String>>(message, responseListResponse, statusCode, false);
+
         }
 
         public ApiResponse<Dictionary<string, StockResponse>> GetHistorical(short? dayAgo, DateTime? startDate, DateTime? endDate, DateTime? Date, string mode)

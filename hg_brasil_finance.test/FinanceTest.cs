@@ -1,5 +1,4 @@
 using hg_brasil_finance.Aplication.Integration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace hg_brasil_finance.test
 {

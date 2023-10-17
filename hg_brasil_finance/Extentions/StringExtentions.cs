@@ -15,5 +15,15 @@ namespace hg_brasil_finance.Extentions
         {
             return JsonConvert.DeserializeObject<Root<Dictionary<string, StockResponse>>>(value);
         }
+
+        public static Root<Dictionary<string, DefaultResponse>> DeserializeObjectDefault(this string value)
+        {
+            return JsonConvert.DeserializeObject<Root<Dictionary<string, DefaultResponse>>>(value);
+        }
+
+        public static Root<List<String>> DeserializeObjectList(this string value)
+        {
+            return JsonConvert.DeserializeObject<Root<List<String>>>(value);
+        }
     }
 }
