@@ -5,7 +5,9 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hg_brasil_finance", "hg_brasil_finance\hg_brasil_finance.csproj", "{40B1005B-F6BD-46F4-954A-411120AAED25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hg_brasil_finance.test", "hg_brasil_finance.test\hg_brasil_finance.test.csproj", "{F99DA3CF-4238-46E4-9192-6BCCB64A6EC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hg_brasil_finance.test", "hg_brasil_finance.test\hg_brasil_finance.test.csproj", "{F99DA3CF-4238-46E4-9192-6BCCB64A6EC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hg_brasil_finance.console", "hg_brasil_finance.console\hg_brasil_finance.console.csproj", "{FD6C9CC4-C7FE-437C-A0D4-A61F9BB8B8D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{F99DA3CF-4238-46E4-9192-6BCCB64A6EC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F99DA3CF-4238-46E4-9192-6BCCB64A6EC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F99DA3CF-4238-46E4-9192-6BCCB64A6EC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD6C9CC4-C7FE-437C-A0D4-A61F9BB8B8D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD6C9CC4-C7FE-437C-A0D4-A61F9BB8B8D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD6C9CC4-C7FE-437C-A0D4-A61F9BB8B8D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD6C9CC4-C7FE-437C-A0D4-A61F9BB8B8D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

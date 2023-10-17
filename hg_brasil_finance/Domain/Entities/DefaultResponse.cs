@@ -1,6 +1,6 @@
 ﻿namespace hg_brasil_finance.Domain.Entities
 {
-    public class Results
+    public class DefaultResponse
     {
         public Currencies currencies { get; set; }
         public Stocks stocks { get; set; }
