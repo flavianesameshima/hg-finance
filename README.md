@@ -1,6 +1,6 @@
 # HGFinance
 
-### Instação
+### Instalação
 
 Para utilizar este projeto, é necessário instalar a seguinte dependência:
 
