@@ -25,9 +25,9 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Publish NuGet package
-      run: dotnet pack --configuration Release --no-build -o out
+      run: dotnet pack -c Release
     - name: Push Nuget package
-      run: dotnet nuget push out/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json
+      run: dotnet nuget push *.nupkg -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json
       
       
 
