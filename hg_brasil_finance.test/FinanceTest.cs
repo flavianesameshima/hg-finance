@@ -16,7 +16,7 @@ namespace hg_brasil_finance.test
         public void GetStockPrice_ReturnOk()
         {
             //Arrange
-            var key = "teste123";
+            var key = "";
             var symbols = new List<string> { "TRPL4" };
 
             //Act
