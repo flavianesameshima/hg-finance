@@ -27,7 +27,8 @@ jobs:
     - name: Publish NuGet package
       run: dotnet pack -c Release
     - name: Push Nuget package
-      run: dotnet nuget push /home/runner/work/hg-finance/hg-finance/hg_brasil_finance/bin/Release/*.nupkg -k ${{secrets.NUGET_API_KEY}} -s https://api.nuget.org/v3/index.json
+      run: dotnet nuget push /home/runner/work/hg-finance/hg-finance/hg_brasil_finance/bin/Release/*.nupkg  -k ${{secrets.NUGET_API_KEY}} ${{secrets.MY_GITHUB_TOKEN}} --source "github"
+
       
       
 
