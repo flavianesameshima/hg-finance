@@ -4,11 +4,11 @@ namespace hg_brasil_finance
 {
     public class CacheConfig
     {
-       public TimeSpan Expiration {  get; set; }
+       public TimeSpan ExpirationDate {  get; set; }
        private readonly MemoryCache _cache;
-        public CacheConfig(int expiration)
+        public CacheConfig(int expirationDate)
         {
-            Expiration = TimeSpan.FromSeconds(expiration);
+            ExpirationDate = TimeSpan.FromSeconds(expirationDate);
             var memoryCacheOptions = new MemoryCacheOptions();
             _cache = new MemoryCache(memoryCacheOptions);
         }
@@ -21,7 +21,24 @@ namespace hg_brasil_finance
 
         public void SetValue(object value, string key)
         {
-            var teste = _cache.Set(key, value, Expiration);
+            var teste = _cache.Set(key, value, ExpirationDate);
+        }
+
+        public T GetFromCache<T>(string cacheKey) where T : class
+        {
+            if (_cache != null)
+            {
+                return (T)TryGetValue(cacheKey);
+            }
+            return null;
+        }
+
+        public void SetCacheValue<T>(T value, string cacheKey)
+        {
+            if (_cache != null)
+            {
+                SetValue(value, cacheKey);
+            }
         }
     }
 }

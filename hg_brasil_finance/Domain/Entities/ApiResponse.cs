@@ -4,15 +4,15 @@ namespace hg_brasil_finance.Domain.Entities
 {
     public class ApiResponse<T>
     {
-        public ApiResponse(string mensagem, Root<T> response, string statusCode, bool cache)
+        public ApiResponse(string message, Root<T> data, string statusCode, bool cache = true)
         {
-            Mensagem = mensagem;
-            Response = response;
+            Message = message;
+            Response = data;
             StatusCode = statusCode;
             Cache = cache;
         }
 
-        public string Mensagem { get; set; }
+        public string Message { get; set; }
         public Root<T> Response { get; set; }
         public string StatusCode { get; set; }
         public bool Cache { get; set; }
