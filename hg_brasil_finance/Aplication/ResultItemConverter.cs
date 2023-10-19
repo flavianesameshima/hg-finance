@@ -16,11 +16,13 @@ namespace hg_brasil_finance.Aplication
 
             if (token.Type == JTokenType.Array)
             {
+                var teste = token.ToObject<IEnumerable<T>>();
                 return token.ToObject<IEnumerable<T>>();
             }
 
             if (token.Type == JTokenType.Object && token["error"] != null)
             {
+                var teste = token.ToObject<IEnumerable<T>>();
                 return token.ToObject<T>();
             }
 
@@ -31,5 +33,7 @@ namespace hg_brasil_finance.Aplication
         {
             throw new NotImplementedException();
         }
+
+        public override bool CanWrite => false;
     }
 }

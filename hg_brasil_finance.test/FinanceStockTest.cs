@@ -24,16 +24,30 @@ namespace hg_brasil_finance.test
         }
 
         [Fact]
-        public void GetStockPrice_ReturnError()
+        public void GetStockPrice_ReturnValide_Key_False()
         {
             //Arrange
-            var symbols = new List<string> { "TREL4" };
+            var symbols = new List<string> { "TREL4"};
 
             //Act 
             var result = _finance.GetStockPrice(symbols);
 
             //Assert
-            Assert.Equal(result.StatusCode, HttpStatusCode.InternalServerError.ToString());
+            Assert.Equal(result.Response.valid_key, false);
+
+        }
+
+        [Fact]
+        public void GetStockDividends_ReturnOk()
+        {
+            //Arrange
+            var symbols = new List<string> { "TREL4", "TRPL4" };
+
+            //Act 
+            var result = _finance.GetStockDividends(symbols);
+
+            //Assert
+            Assert.Equal(result.StatusCode, HttpStatusCode.OK.ToString());
 
         }
     }

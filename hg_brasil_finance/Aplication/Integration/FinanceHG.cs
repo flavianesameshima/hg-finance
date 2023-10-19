@@ -16,7 +16,7 @@ namespace hg_brasil_finance.Aplication.Integration
         public ApiResponse<StockResponse> GetStockPrice(IEnumerable<string> symbol)
             => _stockFinance.GetStockPrice(symbol);
 
-        public ApiResponse<StockResponse> GetStockDividends(IEnumerable<string> symbol)
+        public ApiResponse<DividendsResponse> GetStockDividends(IEnumerable<string> symbol)
             =>_stockFinance.GetStockDividends(symbol);
 
         public ApiResponse<StockResponse> GetIbovespa()

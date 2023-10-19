@@ -5,9 +5,11 @@ namespace hg_brasil_finance.Aplication.Integration
     public class FinanceStock : IFinanceStock
     {
         private readonly BaseIntegration<StockResponse> _integration;
+        private readonly BaseIntegration<DividendsResponse> _integrationDividends;
         public FinanceStock(string keyFinanceHG, CacheConfig cache = null)
         {
             _integration = new BaseIntegration<StockResponse>(keyFinanceHG, cache);
+            _integrationDividends = new BaseIntegration<DividendsResponse>(keyFinanceHG, cache);
         }
 
         public ApiResponse<StockResponse> GetIbovespa()
@@ -19,8 +21,8 @@ namespace hg_brasil_finance.Aplication.Integration
         public ApiResponse<StockResponse> GetQuotations() 
             => _integration.FetchData("/quotations", "QuotationsCache");
 
-        public ApiResponse<StockResponse> GetStockDividends(IEnumerable<string> symbol)
-            => _integration.FetchData($"/stock_dividends?symbol={string.Join(",", symbol)}", "StockDividendsCache");
+        public ApiResponse<DividendsResponse> GetStockDividends(IEnumerable<string> symbol)
+            => _integrationDividends.FetchData($"/stock_dividends?symbol={string.Join(",", symbol)}", "StockDividendsCache");
 
         public ApiResponse<StockResponse> GetStockPrice(IEnumerable<string> symbol)
             =>_integration.FetchData($"/stock_price?symbol={string.Join(",", symbol)}", "StockPriceCache");        

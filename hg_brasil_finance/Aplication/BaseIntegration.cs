@@ -1,5 +1,4 @@
 ﻿using hg_brasil_finance.Domain.Entities;
-using Newtonsoft.Json;
 using RestSharp;
 using System.Net;
 
@@ -11,6 +10,7 @@ namespace hg_brasil_finance.Aplication
         private readonly CacheConfig _cache;
         private readonly RestClient _client;
         private readonly ReturnMessage<T> _returnMessage;
+        private readonly DeserializeObjectReturn<T> _deserialize;
 
         public BaseIntegration(string keyFinanceHG, CacheConfig cache = null)
         {
@@ -18,6 +18,7 @@ namespace hg_brasil_finance.Aplication
             _client = new RestClient("https://api.hgbrasil.com/finance");
             _cache = cache;
             _returnMessage = new ReturnMessage<T>();
+            _deserialize = new DeserializeObjectReturn<T>();
         }
 
         public ApiResponse<T> FetchData(string endpoint, string cacheKey)
@@ -32,7 +33,7 @@ namespace hg_brasil_finance.Aplication
 
                 var response = SendRequest(endpoint);
 
-                var data = JsonConvert.DeserializeObject<Root<Dictionary<string, T>>>(response.Content);
+                var data = _deserialize.DeserializeObject(response.Content);
 
                 var apiResponse = _returnMessage.Message("Sucesso!", response.StatusCode.ToString(), data, false);
 

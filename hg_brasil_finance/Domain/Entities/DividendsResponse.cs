@@ -12,7 +12,5 @@ namespace hg_brasil_finance.Domain.Entities
         public string approved_in { get; set; }
         public string traded_until { get; set; }
         public string payment_date { get; set; }
-        public bool error { get; set; }
-        public string message { get; set; } = string.Empty;
     }
 }
