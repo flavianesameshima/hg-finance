@@ -4,7 +4,7 @@ namespace hg_brasil_finance.Domain.Entities
 {
     public class ApiResponse<T>
     {
-        public ApiResponse(string message, Root<T> data, string statusCode, bool cache = true)
+        public ApiResponse(string message, Root<Dictionary<string, T>> data, string statusCode, bool cache = true)
         {
             Message = message;
             Response = data;
@@ -13,7 +13,7 @@ namespace hg_brasil_finance.Domain.Entities
         }
 
         public string Message { get; set; }
-        public Root<T> Response { get; set; }
+        public Root<Dictionary<string, T>> Response { get; set; }
         public string StatusCode { get; set; }
         public bool Cache { get; set; }
     }

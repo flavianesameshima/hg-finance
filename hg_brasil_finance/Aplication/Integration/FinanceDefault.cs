@@ -4,24 +4,15 @@ namespace hg_brasil_finance.Aplication.Integration
 {
     public class FinanceDefault : IFinanceDefault
     {
-        private readonly BaseIntegration<Dictionary<string, DefaultResponse>> _integration;
-        private readonly CacheConfig _cache;
-        private readonly string _keyFinanceHG;
+        private readonly BaseIntegration<DefaultResponse> _integration;
 
-        public FinanceDefault(string keyFinanceHG, CacheConfig cache)
+        public FinanceDefault(string keyFinanceHG, CacheConfig cache = null)
         {
-            _cache = cache;
-            _keyFinanceHG = keyFinanceHG;
-            _integration = new BaseIntegration<Dictionary<string, DefaultResponse>>(_keyFinanceHG, _cache);
-        }
-        public FinanceDefault(string keyFinanceHG)
-        {
-            _keyFinanceHG = keyFinanceHG;
-            _integration = new BaseIntegration<Dictionary<string, DefaultResponse>>(_keyFinanceHG, _cache);
+            _integration = new BaseIntegration<DefaultResponse>(keyFinanceHG, cache);
         }
 
-        public ApiResponse<Dictionary<string, DefaultResponse>> GetAll()
-        =>_integration.FetchData<Dictionary<string, DefaultResponse>>("", "AllCache");
+        public ApiResponse<DefaultResponse> GetAll()
+        =>_integration.FetchData("", "AllCache");
         
     }
 }

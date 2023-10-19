@@ -7,26 +7,20 @@ namespace hg_brasil_finance.Aplication
 {
     public class BaseIntegration<T>
     {
-        private readonly ApiError _error;
         private readonly string _keyFinanceHG;
         private readonly CacheConfig _cache;
         private readonly RestClient _client;
+        private readonly ReturnMessage<T> _returnMessage;
 
-        public BaseIntegration(string keyFinanceHG, CacheConfig cache)
+        public BaseIntegration(string keyFinanceHG, CacheConfig cache = null)
         {
             _keyFinanceHG = keyFinanceHG;
             _client = new RestClient("https://api.hgbrasil.com/finance");
-            _error = new ApiError();
             _cache = cache;
-        }
-        public BaseIntegration(string keyFinanceHG)
-        {
-            _keyFinanceHG = keyFinanceHG;
-            _client = new RestClient("https://api.hgbrasil.com/finance");
-            _error = new ApiError();
+            _returnMessage = new ReturnMessage<T>();
         }
 
-        public ApiResponse<T> FetchData<T>(string endpoint, string cacheKey)
+        public ApiResponse<T> FetchData(string endpoint, string cacheKey)
         {
             try
             {
@@ -38,12 +32,10 @@ namespace hg_brasil_finance.Aplication
 
                 var response = SendRequest(endpoint);
 
-                if (!response.IsSuccessful)
-                    return _error.HandleException<T>(response.ErrorMessage, response.StatusCode.ToString());
+                var data = JsonConvert.DeserializeObject<Root<Dictionary<string, T>>>(response.Content);
 
-                var data = JsonConvert.DeserializeObject<Root<T>>(response.Content);
+                var apiResponse = _returnMessage.Message("Sucesso!", response.StatusCode.ToString(), data, false);
 
-                var apiResponse = new ApiResponse<T>("Sucesso!", data, response.StatusCode.ToString(), false);
                 if (_cache != null)
                     _cache.SetCacheValue(apiResponse, cacheKey);
 
@@ -51,7 +43,7 @@ namespace hg_brasil_finance.Aplication
             }
             catch (Exception ex)
             {
-                return _error.HandleException<T>(ex.Message, HttpStatusCode.InternalServerError.ToString());
+                return _returnMessage.Message(ex.Message, HttpStatusCode.InternalServerError.ToString(), null);
             }
         }
 
