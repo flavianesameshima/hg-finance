@@ -8,10 +8,7 @@ namespace hg_brasil_finance.Aplication
     {
         public Root<Dictionary<string, object>> DeserializeObject(string json)
         {
-            var settings = new JsonSerializerSettings();
-            settings.Converters.Add(new ResultItemConverter<T>());
-
-            var result = JsonConvert.DeserializeObject<Root<Dictionary<string, object>>>(json, settings);
+            var result = JsonConvert.DeserializeObject<Root<Dictionary<string, object>>>(json);
 
             var processedResults = new Dictionary<string, object>();
 

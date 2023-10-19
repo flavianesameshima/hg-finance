@@ -1,5 +1,4 @@
 ﻿using hg_brasil_finance.Domain.Entities;
-using Newtonsoft.Json.Linq;
 
 namespace hg_brasil_finance.Aplication
 {

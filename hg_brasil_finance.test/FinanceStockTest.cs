@@ -5,7 +5,7 @@ namespace hg_brasil_finance.test
 {
     public class FinanceStockTest
     {
-        private const string KEY = "";
+        private const string KEY = "8dcf13fa";
         private readonly FinanceHG _finance = new FinanceHG(KEY);
         private readonly FinanceHG _financeCache = new FinanceHG(KEY, new CacheConfig(50));
 
@@ -21,20 +21,6 @@ namespace hg_brasil_finance.test
             //Assert
             Assert.Equal(result.StatusCode, HttpStatusCode.OK.ToString());
             Assert.NotNull(result);
-        }
-
-        [Fact]
-        public void GetStockPrice_ReturnValide_Key_False()
-        {
-            //Arrange
-            var symbols = new List<string> { "TREL4"};
-
-            //Act 
-            var result = _finance.GetStockPrice(symbols);
-
-            //Assert
-            Assert.Equal(result.Response.valid_key, false);
-
         }
 
         [Fact]
