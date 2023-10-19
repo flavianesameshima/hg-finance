@@ -5,7 +5,7 @@ namespace hg_brasil_finance.test
 {
     public class FinanceStockTest
     {
-        private const string KEY = "8dcf13fa";
+        private const string KEY = "";
         private readonly FinanceHG _finance = new FinanceHG(KEY);
         private readonly FinanceHG _financeCache = new FinanceHG(KEY, new CacheConfig(50));
 
